@@ -315,6 +315,11 @@ def main():
     parser.add_argument("--save", metavar="FILENAME", help="Save the full message context to a JSON file.")
     parser.add_argument("--load", metavar="FILENAME", help="Load a message context from a JSON file.")
     parser.add_argument(
+        "--model",
+        default="gpt-oss-120b",
+        help="LLM model to use (default: gpt-oss-120b).",
+    )
+    parser.add_argument(
         "--max_iterations",
         type=int,
         default=10,
@@ -348,7 +353,7 @@ def main():
         print(f"\nIteration {i + 1}")
         print("=" * 30)
 
-        message = get_completion(messages, model="gpt-oss-120b")
+        message = get_completion(messages, model=args.model)
         messages.append(message)
         tool_calls = message_field(message, "tool_calls")
 
